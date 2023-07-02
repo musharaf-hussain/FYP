@@ -10,13 +10,7 @@
                 <img src="assets/images/logo@2x.png" width="120" alt="" />
             </a>
 
-            <p class="description">Dear user, log in to access the admin area!</p>
-
-            <!-- progress bar indicator -->
-            <div class="login-progressbar-indicator">
-                <h3>43%</h3>
-                <span>logging in...</span>
-            </div>
+            <p class="description">Dear user, Signup to create account!</p>
         </div>
 
     </div>
@@ -34,8 +28,7 @@
                 <p>Enter <strong>demo</strong>/<strong>demo</strong> as login and password.</p>
             </div>
 
-            <form action='login.php' method="post" role="form" id="form_login">
-
+            <form>
                 <div class="form-group">
 
                     <div class="input-group">
@@ -43,7 +36,29 @@
                             <i class="entypo-user"></i>
                         </div>
 
-                        <input type="text" class="form-control" name="name" id="username" placeholder="Username" autocomplete="off" />
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" autocomplete="off" />
+                    </div>
+
+                </div>
+                <div class="form-group">
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="entypo-user"></i>
+                        </div>
+
+                        <input type="text" class="form-control" name="name" id="City" placeholder="City" autocomplete="off" />
+                    </div>
+
+                </div>
+                <div class="form-group">
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="entypo-user"></i>
+                        </div>
+
+                        <input type="email" class="form-control" name="name" id="email" placeholder="email" autocomplete="off" />
                     </div>
 
                 </div>
@@ -65,7 +80,7 @@
                         <i class="entypo-login"></i>
                         Login In
                     </button> -->
-                    <input type="submit" name="login" value="login" class="btn btn-primary btn-block btn-login">
+                    <input type="submit" name="login" value="Signup" class="btn btn-primary btn-block btn-login">
                 </div>
 
             </form>
@@ -74,9 +89,5 @@
     </div>
 
 </div>
-<?php
-if (isset($_POST['login'])) {
-    echo $_POST['name'] . $_POST['password'];
-}
-?>
+<!--  -->
 <?php echo include('includes/footer.php') ?>

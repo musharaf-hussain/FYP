@@ -78,18 +78,11 @@
                             <span class="title">Dashboard</span>
                         </a>
                     </li>
-                    <li class="root-level">
-                        <a href="leaves.php">
-                            <i class="entypo-layout"></i>
+                    <li class="active opened has-sub">
+                        <a href="leaves.html">
+
                             <span class="title">Leaves</span>
                         </a>
-                        <!-- <ul class="" style="opacity: 0.2; height: 0px;">
-                            <li>
-                                <a href="layout-boxed.html">
-                                    <span class="title">Boxed Layout</span>
-                                </a>
-                            </li>
-                        </ul> -->
                     </li>
                     <li class="active opened has-sub">
                         <a href="personal.html">
@@ -122,60 +115,7 @@
                                 John Henderson
                             </a>
 
-                        </li>
-                        <li class="notifications dropdown">
 
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
-                                <i class="entypo-bell"></i>
-                                <span class="badge badge-secondary">10</span>
-                            </a>
-
-                            <ul class="dropdown-menu">
-                                <li>
-
-                                    <ul class="dropdown-menu-list scroller" tabindex="5002" style="overflow: hidden; outline: none;">
-                                        <li>
-                                            <a href="#">
-                                                <span class="image pull-right">
-                                                    <button class="btn btn-sm btn-success">Accept</button>
-                                                    <button class="btn btn-sm btn-danger">Reject</button>
-                                                </span>
-
-                                                <span class="line">
-                                                    Hayden Cartwright
-                                                    - a week ago
-                                                </span>
-
-                                                <span class="line desc small">
-                                                    Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
-                                                </span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">
-                                                <span class="image pull-right">
-                                                    <button class="btn btn-sm btn-success">Accept</button>
-                                                    <button class="btn btn-sm btn-danger">Reject</button>
-                                                </span>
-
-                                                <span class="line">
-                                                    Hayden Cartwright
-                                                    - a week ago
-                                                </span>
-
-                                                <span class="line desc small">
-                                                    Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-
-                            </ul>
-
-                        </li>
                     </ul>
 
                 </div>
@@ -210,32 +150,43 @@
 
 
             <div class="row">
-                <div class="col-sm-3 col-xs-6">
+                <div class="panel-body">
 
-                    <div class="tile-stats tile-red">
-                        <div class="icon"><i class="entypo-users"></i></div>
-                        <div class="num" data-start="0" data-end="83" data-postfix="" data-duration="1500" data-delay="0">0</div>
+                    <div class="col-sm-3 col-xs-12 col-lg-12">
+                        <h3>abc@gmail.com leave records</h3>
 
-                        <h3>Approved Leaves</h3>
-                        <p>All Approved Leaves</p>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <table class="table table-bordered responsive">
+                                    <thead>
+                                        <tr>
+                                            <th width="15%">#</th>
+                                            <th>Start Date & Time</th>
+                                            <th>End Date & Time</th>
+                                            <th>Leave Type</th>
+                                            <th width="33%">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>03</td>
+                                            <td>1 MAY</td>
+                                            <td>2 MAY</td>
+                                            <td>Sex leave</td>
+                                            <td>
+                                                <div class="label label-secondary">Rejected</div>
+                                                <div class="label label-success">Accepted </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
                     </div>
 
                 </div>
-
-                <div class="col-sm-3 col-xs-6">
-
-                    <div class="tile-stats tile-green">
-                        <div class="icon"><i class="entypo-chart-bar"></i></div>
-                        <div class="num" data-start="0" data-end="135" data-postfix="" data-duration="1500" data-delay="600">0</div>
-
-                        <h3>Pending Leave</h3>
-                        <p>Pending leave</p>
-                    </div>
-
-                </div>
-
-                <div class="clear visible-xs"></div>
-
 
 
             </div>

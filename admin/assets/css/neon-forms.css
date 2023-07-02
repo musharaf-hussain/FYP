@@ -4266,7 +4266,7 @@ hr + .mail-env {
 }
 .login-page .login-form .form-group .btn-login {
   border: 1px solid #454a54;
-  text-align: left;
+  text-align: center;
   padding: 15px 20px;
   font-size: 14px;
   -moz-transition: all 300ms ease-in-out;
@@ -4281,6 +4281,7 @@ hr + .mail-env {
 .login-page .login-form .form-group .btn-login:active {
   background: #373e4a;
 }
+
 .login-page .login-form .form-group .facebook-button,
 .login-page .login-form .form-group .twitter-button,
 .login-page .login-form .form-group .google-button {
@@ -4785,4 +4786,9 @@ hr + .mail-env {
   -ms-transform: scale(1.15);
   -o-transform: scale(1.15);
   transform: scale(1.15);
+}
+
+
+.btn-login{
+    text-align: center !important;
 }
