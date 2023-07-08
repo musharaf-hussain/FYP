@@ -51,9 +51,15 @@
                         </ul> -->
                     </li>
                     <li class="active opened has-sub">
-                        <a href="personal.php">
+                        <a href="user.php">
 
                             <span class="title">Personal</span>
+                        </a>
+                    </li>
+                    <li class="active opened has-sub">
+                        <a href="users.php">
+
+                            <span class="title">Users</span>
                         </a>
                     </li>
 
