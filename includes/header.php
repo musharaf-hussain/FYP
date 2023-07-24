@@ -26,6 +26,7 @@
 </head>
 <?php
 session_start();
+include('./env.php');
 if (isset($_SESSION['auth']) && $_SESSION['auth'] !== '') {
      $requestPath = $_SERVER['REQUEST_URI'];
      $role = $_SESSION['auth']['role_id'];

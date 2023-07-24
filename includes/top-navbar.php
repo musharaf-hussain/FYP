@@ -9,6 +9,7 @@
       </style>
       <?php
         include('./connection.php');
+        
         $pending_leaves_query1 = 'select * from employee_leaves where status = "Pending"';
 
         function query1($conn, $sql)
@@ -16,6 +17,24 @@
             $row2 = mysqli_query($conn, $sql);
             return mysqli_num_rows($row2);
         }
+        function getCurrentDate()
+        {
+            $dateTime = new DateTime();
+            $currentDate = $dateTime->format('Y-m-d'); // Format: YYYY-MM-DD
+            return $currentDate;
+        }
+        $auth = $_SESSION['auth'];
+        $user_id = $auth['id'];
+        $getSql = "SELECT * FROM attendences WHERE DATE(check_in)  = CURDATE() AND user_id='$user_id'";
+        $d = mysqli_query($conn, $getSql);
+
+        if(isset($_GET['attendence']) && $_GET['attendence']=='check_in'){
+            echo '<script>alert("you successfully check in"); location.href = "http://localhost/projects/AMS";</script>';
+            
+        } else if (isset($_GET['attendence']) && $_GET['attendence']== 'check_out') {
+            echo '<script>alert("you successfully check out"); location.href = "http://localhost/projects/AMS";</script>';
+        }
+        
         ?>
       <div class="row">
 
@@ -35,14 +54,20 @@
                   </li>
                   <li class="notifications dropdown">
                       <?php
+                        if (mysqli_num_rows($d) > 0) {
+                        ?>
+                          <a href="attendence_time.php?user_id=<?php echo $user_id ?>&type=check_out" class="btn btn-success">Check-out</a>
+                      <?php
+                        } else {
+                        ?>
+                          <a href="attendence_time.php?user_id=<?php echo $user_id ?>&type=check_in" class="btn btn-warning">Check-in</a>
+                      <?php
+                        }
+                        ?>
+                      <?php
                         $row2 = mysqli_query($conn, $pending_leaves_query1);
 
                         ?>
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
-                          <i class="entypo-bell"></i>
-
-                          <span class="badge badge-secondary"><?php echo mysqli_num_rows($row2);  ?></span>
-                      </a>
                       <?php
                         if (mysqli_num_rows($row2) > 0) {
                             while ($record1 = mysqli_fetch_assoc($row2)) {
@@ -60,7 +85,7 @@
 
                                                   <span class="image pull-right">
                                                       <?php $id1 = $record1['id']; ?>
-                                                      <a href="leave-detail.php?id=<?php echo $id1?>" class="btn btn-sm btn-info">View</a>
+                                                      <a href="leave-detail.php?id=<?php echo $id1 ?>" class="btn btn-sm btn-info">View</a>
                                                   </span>
                                               </a>
                                           </li>
