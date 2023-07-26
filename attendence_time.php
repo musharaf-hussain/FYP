@@ -20,7 +20,7 @@ if(isset($_GET['user_id']) && isset($_GET['type']) && $_GET['user_id']!='' && $_
         $isCheckIn = false;
         $checkOut = null;
         while($row = mysqli_fetch_assoc($d)) {
-            
+          
             if(getJustDate($row['check_in']) == getJustDate($time))
             {
                $isCheckIn = true;
@@ -31,7 +31,7 @@ if(isset($_GET['user_id']) && isset($_GET['type']) && $_GET['user_id']!='' && $_
             if($type=='check_out' && !$checkOut){
                 $auth =  $_SESSION['auth'];
                 $id = $auth['id'];
-                $sql = "update attendences set check_out = '$time' where user_id = '$id' ";
+                $sql = "update attendences set check_out = '$time' where user_id = '$id' AND check_out IS NULL";
                 mysqli_query($conn, $sql);
             }
 
@@ -82,6 +82,7 @@ function getJustDate($format){
 
     // Get the date part as a string in 'Y-m-d' format
     $dateOnly = $dateTime->format('Y-m-d');
+    return $dateOnly;
 }
 function getCurrentDate()
 {

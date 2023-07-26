@@ -23,7 +23,7 @@ if (isset($_POST['apply'])) {
         $geSql = "Select sum(leave_count) from employee_leaves where user_id='$id' AND leave_type='$leaveType'";
         $data = mysqli_query($conn,$geSql);
         $record = mysqli_fetch_all($data);
-        $sql = "INSERT INTO employee_leaves (leave_type, start_date,end_date,user_id,leave_count) VALUES ('$leaveType', '$from', '$to','$id','$daysCount')";
+        $sql = "INSERT INTO employee_leaves (leave_type, start_date,end_date,status,user_id,leave_count) VALUES ('$leaveType', '$from', '$to','pending','$id','$daysCount')";
         if($leaveType=='casual'){
             if (($daysCount + $record[0][0]) >= $casualLeaves) {
                 $_SESSION['flash_message'] = 'you have used all '. $leaveType. "Leaves";

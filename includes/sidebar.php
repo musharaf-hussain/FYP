@@ -51,13 +51,13 @@
                         </ul> -->
                     </li>
                     <li class="active opened has-sub">
-                        <a href="user.php">
+                        <a href="leave-record.php">
 
-                            <span class="title">Personal</span>
+                            <span class="title">Leaves</span>
                         </a>
                     </li>
                     <li class="active opened has-sub">
-                        <a href="users.php">
+                        <a href="attendance-record.php">
                             <span class="title">Attendence</span>
                         </a>
                     </li>
