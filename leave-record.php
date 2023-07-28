@@ -5,17 +5,21 @@ $id = $_SESSION['auth']['id'];
 function query($conn, $sql)
 {
     $row1 = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($row1) <= 0) {
-        return [];
-    }
     $record1 = mysqli_fetch_assoc($row1);
     return $record1;
 }
-$sql_sick_leave = "SELECT COUNT(*) AS sick_leave_count FROM employee_leaves WHERE leave_type = 'sick' AND user_id='$id'";
-$sql_casual_leave = "SELECT COUNT(*) AS casual_leave_count FROM employee_leaves WHERE leave_type = 'causal' AND user_id='$id'";
-$sql_compensatory_leave = "SELECT COUNT(*) AS compensatory_leave_count FROM employee_leaves WHERE leave_type = 'compensatory' AND user_id='$id'";
-$sick = mysqli_query($conn, $sql_sick_leave);
-$s_record = mysqli_fetch_assoc($sick);
+$sql_sick_leave = "SELECT SUM(leave_count) AS sick_leave_count FROM employee_leaves WHERE leave_type = 'sick' AND user_id='$id' AND status='Approved'";
+$sql_casual_leave = "SELECT SUM(leave_count) AS casual_leave_count FROM employee_leaves WHERE leave_type = 'casual' AND user_id='$id' AND status='Approved'";
+$sql_compensatory_leave = "SELECT SUM(leave_count) AS compensatory_leave_count FROM employee_leaves WHERE leave_type = 'compensatory' AND user_id='$id' AND status='Approved'";
+$s_record = query($conn, $sql_sick_leave);
+$c_record = query($conn, $sql_casual_leave);
+$com_record = query($conn, $sql_compensatory_leave);
+
+/**  */
+$sql_l = "SELECT * FROM leaves WHERE id IS NOT NULL";
+$leaveRecord = query($conn, $sql_l);
+
+
 
 include('./connection.php');
 ?>
@@ -69,9 +73,9 @@ include('./connection.php');
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><?php echo $s_record['sick_leave_count'];  ?></td>
-                                            <td>10</td>
-                                            <td>10</td>
+                                            <td><?php echo $leaveRecord['medical_leaves'] - $s_record['sick_leave_count'] ?? 0 ;  ?></td>
+                                            <td><?php echo $leaveRecord['casual_leaves'] - $c_record['casual_leave_count'] ?? 0;  ?></td>
+                                            <td><?php echo $leaveRecord['componsatory_leaves'] - $com_record['compensatory_leave_count'] ?? 0;  ?></td>
                                         </tr>
                                     </tbody>
 

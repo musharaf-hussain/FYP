@@ -1,9 +1,9 @@
 <?php include('./includes/header.php'); ?>
 <?php
 $id = null;
-if(isset($_GET['id']) && $_GET['id']!==''){
-  $id = $_GET['id'];
-}else {
+if (isset($_GET['id']) && $_GET['id'] !== '') {
+    $id = $_GET['id'];
+} else {
     echo '<h1>Page Not found</h1>';
     die();
 }
@@ -41,24 +41,24 @@ include('../connection.php');
             <div class="row">
                 <div class="panel-body">
                     <?php
-                    if($id){
-                    $sql = "SELECT * FROM users JOIN employee_leaves ON users.id = employee_leaves.user_id where users.id = '$id'";
-                    $user = query($conn, $sql);
+                    if ($id) {
+                        $sql = "SELECT * FROM users JOIN employee_leaves ON users.id = employee_leaves.user_id where users.id = '$id'";
+                        $user = query($conn, $sql);
                     }
                     ?>
                     <div class="col-sm-3 col-xs-12 col-lg-12">
                         <?php
-                        if($id && $user){
+                        if ($id && $user) {
                         ?>
-                        <h3><?php echo $user['email']; ?> leave records</h3>
+                            <h3><?php echo $user['email']; ?> leave records</h3>
                         <?php } ?>
 
 
                         <div class="row">
                             <div class="col-md-12">
-      
+
                                 <table class="table table-bordered responsive">
-                                    
+
                                     <thead>
                                         <tr>
                                             <th width="15%">#</th>
@@ -71,10 +71,10 @@ include('../connection.php');
                                     <tbody>
                                         <?php
                                         $i = 1;
-                                        
+
                                         $row1 = mysqli_query($conn, $sql);
                                         if (mysqli_num_rows($row1) > 0) {
-                                            
+
                                             while ($record = mysqli_fetch_assoc($row1)) {
                                         ?>
                                                 <tr>
@@ -93,7 +93,13 @@ include('../connection.php');
                                                             <div class="label label-secondary">Rejected</div>
 
                                                         <?php
-                                                        } ?>
+                                                        } else {
+                                                        ?>
+                                                            <div class="label label-secondary">Pending</div>
+
+                                                        <?php
+                                                        }
+                                                        ?>
                                                     </td>
                                                 </tr>
                                         <?php $i++;

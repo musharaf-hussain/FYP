@@ -1,12 +1,15 @@
 <?php include('./includes/header.php') ?>
 <?php include('./connection.php');
-$user_query = 'select * from users where role_id =2';
-$pending_leaves_query = 'select * from employee_leaves where status = "Pending"';
+$id = $_SESSION['auth']['id'];
+$approved_leaves = "SELECT SUM(leave_count) AS count FROM employee_leaves where user_id='$id' AND status='Approved'";
+
+$pending_leaves_query = "SELECT count(*) AS count FROM employee_leaves where user_id='$id' AND status='pending'";
+
 
 function query($conn, $sql)
 {
     $row1 = mysqli_query($conn, $sql);
-    return mysqli_num_rows($row1);
+    return mysqli_fetch_assoc($row1);
 }
 
 ?>
@@ -33,10 +36,10 @@ function query($conn, $sql)
 
                     <div class="tile-stats tile-red">
                         <div class="icon"><i class="entypo-users"></i></div>
-                        <div class="num" data-start="0" data-end=<?php echo query($conn, $user_query); ?> data-postfix="" data-duration="1500" data-delay="0">0</div>
+                        <div class="num" data-start="0" data-end=<?php echo query($conn, $approved_leaves)['count']; ?> data-postfix="" data-duration="1500" data-delay="0">0</div>
 
-                        <h3>Total Leaves</h3>
-                        <p>All Anual Leaves</p>
+                        <h3>Approved Leaves</h3>
+                        <p>Leaves that being approved</p>
                     </div>
 
                 </div>
@@ -45,10 +48,10 @@ function query($conn, $sql)
 
                     <div class="tile-stats tile-green">
                         <div class="icon"><i class="entypo-chart-bar"></i></div>
-                        <div class="num" data-start="0" data-end=<?php echo query($conn, $pending_leaves_query); ?> data-postfix="" data-duration="1500" data-delay="600">0</div>
+                        <div class="num" data-start="0" data-end=<?php echo query($conn, $pending_leaves_query)['count']; ?> data-postfix="" data-duration="1500" data-delay="600">0</div>
 
-                        <h3>Pending Leaves</h3>
-                        <p>All Pending leave</p>
+                        <h3>Pending Leaves Request</h3>
+                        <p>Leaves that being not approved</p>
                     </div>
 
                 </div>

@@ -39,7 +39,7 @@ if (isset($_POST['signup'])) {
         }
 
         if (mysqli_query($conn, $sql)) {
-            $_SESSION['flash_message'] = 'user created successfully';
+            $_SESSION['flash_message'] = 'user updated successfully';
             $_SESSION['isSuccess'] = true;
         } else {
             echo "Error: " . mysqli_error($conn);

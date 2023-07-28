@@ -38,7 +38,7 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] !== '') {
         die();
     }
 } else {
-    header("Location:../login.php");
+    header("Location:./login.php");
     die();
 }
 ?>

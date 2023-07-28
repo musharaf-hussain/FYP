@@ -21,7 +21,7 @@ include('../connection.php');
             $type = $_GET['type'];
             if ($type && ($type == 'approved' || $type == 'rejected')) {
                 $type = ucfirst($type);
-                $sql = "update employee_leaves set status='$type' where user_id='$id'";
+                $sql = "update employee_leaves set status='$type' where id='$id'";
                 
                 if ($row = mysqli_query($conn, $sql)) {
                     $_SESSION['flash_message'] = true;
@@ -63,7 +63,7 @@ include('../connection.php');
                     ?>
                     <?php
                     if ($id) {
-                        $sql = "SELECT * FROM users JOIN employee_leaves ON users.id = employee_leaves.user_id where employee_leaves.user_id = '$id' AND employee_leaves.status='Pending'";
+                        $sql = "SELECT * FROM users JOIN employee_leaves ON users.id = employee_leaves.user_id where employee_leaves.id = '$id' AND employee_leaves.status='Pending'";
                         $user = query($conn, $sql);
                     }
                     ?>

@@ -9,7 +9,7 @@
       </style>
       <?php
         include('../connection.php');
-        $pending_leaves_query1 = 'select * from employee_leaves where status = "Pending"';
+        $pending_leaves_query1 = "select * from employee_leaves where status = 'pending'";
 
         function query1($conn, $sql)
         {
@@ -36,7 +36,7 @@
                   <li class="notifications dropdown">
                       <?php
                         $row2 = mysqli_query($conn, $pending_leaves_query1);
-
+                         
                         ?>
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
                           <i class="entypo-bell"></i>
@@ -44,15 +44,18 @@
                           <span class="badge badge-secondary"><?php echo mysqli_num_rows($row2);  ?></span>
                       </a>
                       <?php
+                      $i = 0;
                         if (mysqli_num_rows($row2) > 0) {
-                            while ($record1 = mysqli_fetch_assoc($row2)) {
+                          
                         ?>
 
                               <ul class="dropdown-menu">
                                   <li>
 
                                       <ul class="dropdown-menu-list scroller" tabindex="5002" style="overflow: hidden; outline: none;">
-                                          <li>
+                                      <?php
+                                            while ($record1 = mysqli_fetch_assoc($row2)) { ?>    
+                                      <li>
                                               <a href="#">
                                                   <span class="line desc small">
                                                       An Employess Want Leave
@@ -64,13 +67,14 @@
                                                   </span>
                                               </a>
                                           </li>
+                                          <?php }?>
 
                                       </ul>
                                   </li>
 
 
                               </ul>
-                      <?php }
+                      <?php 
                         } ?>
 
                   </li>
