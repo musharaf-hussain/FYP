@@ -1,3 +1,6 @@
+<?php
+ob_start();
+?>
 <?php include('./includes/header.php') ?>
 <?php include('./connection.php');
 $id = $_SESSION['auth']['id'];
@@ -65,3 +68,6 @@ function query($conn, $sql)
     </div>
 
     <?php include('./includes/footer.php') ?>
+    <?php
+    ob_end_flush();
+    ?>

@@ -74,7 +74,7 @@ if(isset($_GET['user_id']) && isset($_GET['type']) && $_GET['user_id']!='' && $_
     
 
 }
-header('Location:'. $baseUrl.'/AMS?attendence='.$type.'');
+header('Location:'. $baseUrl.'?attendence='.$type.'');
 function getJustDate($format){
 
     // Create a DateTime object from the datetime string
