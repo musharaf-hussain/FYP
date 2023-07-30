@@ -7,7 +7,7 @@
                     <!-- logo -->
                     <div class="logo">
                         <a href="index.php">
-                            <img src="assets/images/logo@2x.png" width="120" alt="" />
+                            <img src="assets/images/logo-horizontal.png" width="120" alt="" style="filter: invert(1);" />
                         </a>
                     </div>
 
@@ -32,14 +32,13 @@
                 <ul id="main-menu" class="main-menu">
                     <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                     <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                    <li class="active opened active has-sub">
+                    <li class="root-level">
                         <a href="index.php">
                             <span class="title">Dashboard</span>
                         </a>
                     </li>
                     <li class="root-level">
                         <a href="leaves.php">
-                            <i class="entypo-layout"></i>
                             <span class="title">Leaves</span>
                         </a>
                         <!-- <ul class="" style="opacity: 0.2; height: 0px;">
@@ -50,16 +49,16 @@
                             </li>
                         </ul> -->
                     </li>
-                    <li class="active opened has-sub">
+                    <li class="root-level">
                         <a href="user.php">
 
-                            <span class="title">Personal</span>
+                            <span class="title">Create Employee</span>
                         </a>
                     </li>
-                    <li class="active opened has-sub">
+                    <li class="root-level">
                         <a href="users.php">
 
-                            <span class="title">Users</span>
+                            <span class="title">Employee</span>
                         </a>
                     </li>
 

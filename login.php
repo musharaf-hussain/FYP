@@ -78,10 +78,9 @@ if (isset($_POST['login'])) {
             <div class="login-content">
 
                 <a href="index.php" class="logo">
-                    <img src="assets/images/logo@2x.png" width="120" alt="" />
+                    <img src="assets/images/logo-horizontal.png" width="120" alt="" style="filter: invert(1);" />
                 </a>
 
-                <p class="description">Dear user, log in to access the admin area!</p>
 
                 <!-- progress bar indicator -->
                 <div class="login-progressbar-indicator">

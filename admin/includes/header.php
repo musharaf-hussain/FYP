@@ -21,16 +21,19 @@
     <link rel="stylesheet" href="assets/css/neon-theme.css">
     <link rel="stylesheet" href="assets/css/neon-forms.css">
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/js/daterangepicker/daterangepicker-bs3.css">
+
 
     <script src="assets/js/jquery-1.11.3.min.js"></script>
+
 </head>
 <?php
 session_start();
 if (isset($_SESSION['auth']) && $_SESSION['auth'] !== '') {
-     $requestPath = $_SERVER['REQUEST_URI'];
-     $role = $_SESSION['auth']['role_id'];
-    if (strpos($requestPath, 'admin') !== false && $role==1) {
-          /** admin route */
+    $requestPath = $_SERVER['REQUEST_URI'];
+    $role = $_SESSION['auth']['role_id'];
+    if (strpos($requestPath, 'admin') !== false && $role == 1) {
+        /** admin route */
     } else {
         /** employee route */
         header("Location:../");

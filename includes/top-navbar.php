@@ -9,6 +9,10 @@ ob_start();
     .image.pull-right {
         float: right;
     }
+
+    .text-white {
+        color: #fff !important;
+    }
 </style>
 <?php
 include('./connection.php');
@@ -69,11 +73,11 @@ if (isset($_GET['attendence']) && $_GET['attendence'] == 'check_in') {
                 <?php
                 if (mysqli_num_rows($d) > 0) {
                 ?>
-                    <a href="attendence_time.php?user_id=<?php echo $user_id ?>&type=check_out" class="btn btn-success">Check-out</a>
+                    <a href="attendence_time.php?user_id=<?php echo $user_id ?>&type=check_out" class="btn btn-danger text-white">Check-out</a>
                 <?php
                 } else {
                 ?>
-                    <a href="attendence_time.php?user_id=<?php echo $user_id ?>&type=check_in" class="btn btn-warning">Check-in</a>
+                    <a href="attendence_time.php?user_id=<?php echo $user_id ?>&type=check_in" class="btn btn-success  text-white">Check-in</a>
                 <?php
                 }
                 ?>
@@ -90,7 +94,7 @@ if (isset($_GET['attendence']) && $_GET['attendence'] == 'check_in') {
                             <li>
 
                                 <ul class="dropdown-menu-list scroller" tabindex="5002" style="overflow: hidden; outline: none;">
-                                    <li>
+                                    <li >
                                         <a href="#">
                                             <span class="line desc small">
                                                 An Employess Want Leave

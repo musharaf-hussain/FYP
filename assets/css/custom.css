@@ -4,6 +4,11 @@
  *
 */
 
-body {
-	
+.btn-login {
+    text-align: center !important;
+}
+
+
+.text-white {
+    color: #fff !important;
 }

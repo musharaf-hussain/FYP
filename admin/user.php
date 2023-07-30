@@ -90,47 +90,49 @@ if (isset($_GET['id']) && $_GET['id'] !== '') {
                                     <input type="text" name="name" required class="form-control input-lg" value="<?php echo count($userData) > 0 ? $userData['name'] : '' ?>"">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="field-1" class="col-sm-3 control-label">Email</label>
+                            <div class=" form-group">
+                                    <label for="field-1" class="col-sm-3 control-label">Email</label>
 
-                                <div class="col-sm-5">
-                                    <input type="email" name="email" required class="form-control input-lg" value="<?php echo count($userData) > 0 ? $userData['email'] : '' ?>">
+                                    <div class="col-sm-5">
+                                        <input type="email" name="email" required class="form-control input-lg" value="<?php echo count($userData) > 0 ? $userData['email'] : '' ?>">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="field-1" class="col-sm-3 control-label">Password</label>
+                                <div class="form-group">
+                                    <label for="field-1" class="col-sm-3 control-label">Password</label>
 
-                                <div class="col-sm-5">
-                                    <input type="password" <?php echo  $id ? '' : 'required' ?> name="password" class="form-control input-lg">
+                                    <div class="col-sm-5">
+                                        <input type="password" <?php echo  $id ? '' : 'required' ?> name="password" class="form-control input-lg">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="field-1" class="col-sm-3 control-label">City</label>
+                                <div class="form-group">
+                                    <label for="field-1" class="col-sm-3 control-label">City</label>
 
-                                <div class="col-sm-5">
-                                    <input type="text" name="city"  required value="<?php echo count($userData) > 0 ? $userData['city'] : '' ?>" class="form-control input-lg">
+                                    <div class="col-sm-5">
+                                        <input type="text" name="city" required value="<?php echo count($userData) > 0 ? $userData['city'] : '' ?>" class="form-control input-lg">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <div class="col-sm-5 col-lg-8 col-md-12">
-                                    <input type="submit" class="form-control input-lg" value="Sign Up" name="signup">
+                                <div class="form-group">
+                                    <div class="col-12">
+                                        <div style="max-width:70%; margin:auto;">
+                                            <input type="submit" class="form-control input-lg btn btn-primary btn-login" value="Sign Up" name="signup">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
+                        </form>
                     </div>
-                    </form>
+
                 </div>
+
 
             </div>
 
+            <br />
+
+
+            <br />
 
         </div>
-
-        <br />
-
-
-        <br />
-
-    </div>
-    <?php include('./includes/footer.php') ?>
+        <?php include('./includes/footer.php') ?>

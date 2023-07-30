@@ -8,3 +8,27 @@ body {
 	
 }
 
+.dropdown-menu-list .btn-info {
+        background: #303641 !important;
+    color: #fff !important;
+    outline: none !important;
+    border-color: #303641 !important;
+}
+
+
+.dropdown-menu-list .btn-info:hover {
+        background-color: #303641 !important;
+    color: #fff !important;
+    outline: none !important;
+    border-color: #303641 !important;
+}
+
+
+.btn-login {
+    text-align: center !important;
+}
+
+
+.text-white {
+    color: #fff !important;
+}

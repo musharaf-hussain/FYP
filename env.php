@@ -1,3 +1,3 @@
 <?php
-$baseUrl = 'http://' . $_SERVER['SERVER_NAME'] . '/ams_local';
-$adminBaseUrl = 'http://' . $_SERVER['SERVER_NAME'] . '/ams_local/admin';
+$baseUrl = 'http://' . $_SERVER['SERVER_NAME'] . '/AMS';
+$adminBaseUrl = 'http://' . $_SERVER['SERVER_NAME'] . '/AMS/admin';

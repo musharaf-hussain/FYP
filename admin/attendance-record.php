@@ -53,8 +53,15 @@ include('../connection.php');
                             <h3><?php echo $user['email']; ?> leave records</h3>
                         <?php } ?>
 
-
                         <div class="row">
+                            <div class="form-group " style="margin-bottom:10px;">
+                                <label class=" control-label">Selected Date Range</label>
+                                <div class="">
+                                    <input type="text" class="form-control daterange" data-format="YYYY-MM-DD"  data-separator=" , " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
                             <div class="col-md-12">
 
                                 <table class="table table-bordered responsive">
@@ -64,7 +71,7 @@ include('../connection.php');
                                             <th width="15%">#</th>
                                             <th>Check-in Time</th>
                                             <th>Check-out Time</th>
-                                    
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -80,7 +87,7 @@ include('../connection.php');
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $record['check_in']; ?></td>
                                                     <td><?php echo $record['check_out']; ?></td>
-                                                    
+
                                                 </tr>
                                         <?php $i++;
                                             }
@@ -314,4 +321,4 @@ include('../connection.php');
 
 
 
-<?php include('includes/footer.php'); ?>
+    <?php include('includes/footer.php'); ?>
