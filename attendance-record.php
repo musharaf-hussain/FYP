@@ -1,6 +1,8 @@
 <?php include('./includes/header.php'); ?>
 <?php
 $id = $_SESSION['auth']['id'];
+$start = isset($_GET['start']) && $_GET['start']!='' ? $_GET['start'] : null;
+$end = isset($_GET['end']) && $_GET['end'] != ''  ? $_GET['end']  : null;
 function query($conn, $sql)
 {
     $row1 = mysqli_query($conn, $sql);
@@ -13,7 +15,7 @@ function query($conn, $sql)
 include('./connection.php');
 ?>
 
-<body class="page-body  page-fade" data-url="http://neon.dev">
+<body class="page-body" data-url="http://neon.dev">
 
     <div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
         <?php include('./includes/sidebar.php') ?>
@@ -36,7 +38,14 @@ include('./connection.php');
                 <div class="panel-body">
                     <?php
                     if ($id) {
-                        $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id'";
+                        if($start && $end){
+                            $start = $start . '00:00:00';
+                            $end = $end . '23:59:00';
+                            $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id' AND created_at >= '$start' AND created_at <= '$end' ";
+                        }else {
+                            $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id'";
+                            
+                        }
                         $user = query($conn, $sql);
                     }
                     ?>
