@@ -1,7 +1,7 @@
 <?php include('./includes/header.php'); ?>
 <?php
 $id = $_SESSION['auth']['id'];
-$start = isset($_GET['start']) && $_GET['start']!='' ? $_GET['start'] : null;
+$start = isset($_GET['start']) && $_GET['start'] != '' ? $_GET['start'] : null;
 $end = isset($_GET['end']) && $_GET['end'] != ''  ? $_GET['end']  : null;
 function query($conn, $sql)
 {
@@ -38,13 +38,13 @@ include('./connection.php');
                 <div class="panel-body">
                     <?php
                     if ($id) {
-                        if($start && $end){
+                        if ($start && $end) {
+
                             $start = $start . '00:00:00';
                             $end = $end . '23:59:00';
                             $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id' AND created_at >= '$start' AND created_at <= '$end' ";
-                        }else {
+                        } else {
                             $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id'";
-                            
                         }
                         $user = query($conn, $sql);
                     }
@@ -67,7 +67,7 @@ include('./connection.php');
                                             <th width="15%">#</th>
                                             <th>Check-in Time</th>
                                             <th>Check-out Time</th>
-                                    
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -83,7 +83,7 @@ include('./connection.php');
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $record['check_in']; ?></td>
                                                     <td><?php echo $record['check_out']; ?></td>
-                                                    
+
                                                 </tr>
                                         <?php $i++;
                                             }
@@ -315,6 +315,6 @@ include('./connection.php');
         </div>
     </div>
 
+  
 
-
-<?php include('includes/footer.php'); ?>
+    <?php include('includes/footer.php'); ?>

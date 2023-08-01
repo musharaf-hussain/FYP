@@ -1,4 +1,9 @@
 <?php include('./includes/header.php'); ?>
+<?php include('../env.php');
+    $start = isset($_GET['start']) && $_GET['start'] != '' ? $_GET['start'] : null;
+    $end = isset($_GET['end']) && $_GET['end'] != ''  ? $_GET['end']  : null;
+?>
+
 <?php
 $id = null;
 if (isset($_GET['id']) && $_GET['id'] !== '') {
@@ -42,7 +47,15 @@ include('../connection.php');
                 <div class="panel-body">
                     <?php
                     if ($id) {
-                        $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id'";
+                        if ($start && $end) {
+
+                            $start = $start . ' 00:00:00';
+                            $end = $end . ' 23:59:00';
+                            $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id' AND created_at >= '$start' AND created_at <= '$end' ";
+                        } else {
+                            $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id'";
+                        }
+                        // $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id'";
                         $user = query($conn, $sql);
                     }
                     ?>
@@ -57,7 +70,7 @@ include('../connection.php');
                             <div class="form-group " style="margin-bottom:10px;">
                                 <label class=" control-label">Selected Date Range</label>
                                 <div class="">
-                                    <input type="text" class="form-control daterange" data-format="YYYY-MM-DD"  data-separator=" , " />
+                                    <input type="text" class="form-control daterange" value="<?php echo $end ? $start .','. $end :''?>" data-format="YYYY-MM-DD" data-separator=" , " />
                                 </div>
                             </div>
                         </div>
@@ -319,6 +332,14 @@ include('../connection.php');
         </div>
     </div>
 
-
+    <script>
+        $('.daterange').change(function() {
+            let dateRangeStr = $(this).val()
+            var [start, end] = dateRangeStr.split(" , ");
+            let url = '<?php echo $adminBaseUrl; ?>/attendance-record.php?id=<?php echo $id ?>';
+            url = url + '&start=' + start + '&end='+end
+            window.location.href = url
+        })
+    </script>
 
     <?php include('includes/footer.php'); ?>
