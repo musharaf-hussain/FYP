@@ -1,4 +1,6 @@
 <?php include('./includes/header.php'); ?>
+<?php include('../env.php'); ?>
+
 <?php
 $id = null;
 if (isset($_GET['id']) && $_GET['id'] !== '') {
@@ -7,6 +9,21 @@ if (isset($_GET['id']) && $_GET['id'] !== '') {
     echo '<h1>Page Not found</h1>';
     die();
 }
+function getDays($user_id, $conn)
+{
+    $currentYear = date('Y');
+    $currentMonth = date('m');
+
+    // Form the start and end dates of the current month
+    $startOfMonth = $currentYear . '-' . $currentMonth . '-01 00:00:00';
+    $endOfMonth = $currentYear . '-' . $currentMonth . '-31 23:59:59';
+    $sql = "Select * from attendences where user_id ='$user_id' AND created_at >= '$startOfMonth' AND created_at <= '$endOfMonth'";
+    $query = mysqli_query($conn, $sql);
+    $rows = mysqli_num_rows($query);
+    return $rows;
+}
+$start = isset($_GET['start']) && $_GET['start'] != '' ? $_GET['start'] : null;
+$end = isset($_GET['end']) && $_GET['end'] != ''  ? $_GET['end']  : null;
 function query($conn, $sql)
 {
     $row1 = mysqli_query($conn, $sql);
@@ -42,18 +59,38 @@ include('../connection.php');
                 <div class="panel-body">
                     <?php
                     if ($id) {
-                        $sql = "SELECT * FROM users JOIN employee_leaves ON users.id = employee_leaves.user_id where users.id = '$id'";
+                        if ($start && $end) {
+
+                            $start = $start . ' 00:00:00';
+                            $end = $end . ' 23:59:00';
+                            $sql = "SELECT * FROM users JOIN employee_leaves ON users.id = employee_leaves.user_id where users.id = '$id' AND created_at >= '$start' AND created_at <= '$end' ";
+                        } else {
+                            $sql = "SELECT * FROM users JOIN employee_leaves ON users.id = employee_leaves.user_id where users.id = '$id'";
+                        }
+                        // $sql = "SELECT * FROM users JOIN attendences ON users.id = attendences.user_id where users.id = '$id'";
                         $user = query($conn, $sql);
                     }
                     ?>
+
                     <div class="col-sm-3 col-xs-12 col-lg-12">
                         <?php
                         if ($id && $user) {
                         ?>
                             <h3><?php echo $user['email']; ?> leave records</h3>
                         <?php } ?>
+                        <div>
+                            <h4>Employee's Current Month Working Days : <strong><?php echo getDays($id, $conn) ?></strong></h4>
+                        </div>
+                        <br>
 
-
+                        <div class="row">
+                            <div class="form-group " style="margin-bottom:10px;">
+                                <label class=" control-label">Selected Date Range</label>
+                                <div class="">
+                                    <input type="text" class="form-control daterange" value="<?php echo $end ? $start . ',' . $end : '' ?>" data-format="YYYY-MM-DD" data-separator=" , " />
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
 
@@ -334,39 +371,14 @@ include('../connection.php');
 
 
 
+    <script>
+        $('.daterange').change(function() {
+            let dateRangeStr = $(this).val()
+            var [start, end] = dateRangeStr.split(" , ");
+            let url = '<?php echo $adminBaseUrl; ?>/leave-record.php?id=<?php echo $id ?>';
+            url = url + '&start=' + start + '&end=' + end
+            window.location.href = url
+        })
+    </script>
 
-    <!-- Imported styles on this page -->
-    <link rel="stylesheet" href="assets/js/jvectormap/jquery-jvectormap-1.2.2.css">
-    <link rel="stylesheet" href="assets/js/rickshaw/rickshaw.min.css">
-
-    <!-- Bottom scripts (common) -->
-    <script src="assets/js/gsap/TweenMax.min.js"></script>
-    <script src="assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-    <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/joinable.js"></script>
-    <script src="assets/js/resizeable.js"></script>
-    <script src="assets/js/neon-api.js"></script>
-    <script src="assets/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-
-
-    <!-- Imported scripts on this page -->
-    <script src="assets/js/jvectormap/jquery-jvectormap-europe-merc-en.js"></script>
-    <script src="assets/js/jquery.sparkline.min.js"></script>
-    <script src="assets/js/rickshaw/vendor/d3.v3.js"></script>
-    <script src="assets/js/rickshaw/rickshaw.min.js"></script>
-    <script src="assets/js/raphael-min.js"></script>
-    <script src="assets/js/morris.min.js"></script>
-    <script src="assets/js/toastr.js"></script>
-    <script src="assets/js/neon-chat.js"></script>
-
-
-    <!-- JavaScripts initializations and stuff -->
-    <script src="assets/js/neon-custom.js"></script>
-
-
-    <!-- Demo Settings -->
-    <script src="assets/js/neon-demo.js"></script>
-
-</body>
-
-</html>
+    <?php include('includes/footer.php'); ?>

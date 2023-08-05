@@ -2,6 +2,21 @@
 <?php include('./connection.php'); ?>
 <?php
 $id = $_SESSION['auth']['id'];
+$start = isset($_GET['start']) && $_GET['start'] != '' ? $_GET['start'] : null;
+$end = isset($_GET['end']) && $_GET['end'] != ''  ? $_GET['end']  : null;
+function getDays($user_id, $conn)
+{
+    $currentYear = date('Y');
+    $currentMonth = date('m');
+
+    // Form the start and end dates of the current month
+    $startOfMonth = $currentYear . '-' . $currentMonth . '-01 00:00:00';
+    $endOfMonth = $currentYear . '-' . $currentMonth . '-31 23:59:59';
+    $sql = "Select * from attendences where user_id ='$user_id' AND created_at >= '$startOfMonth' AND created_at <= '$endOfMonth'";
+    $query = mysqli_query($conn, $sql);
+    $rows = mysqli_num_rows($query);
+    return $rows;
+}
 function query($conn, $sql)
 {
     $row1 = mysqli_query($conn, $sql);
@@ -58,7 +73,10 @@ include('./connection.php');
                             <h3><?php echo $user['email']; ?> leave records</h3>
                         <?php } ?>
 
-
+                        <div>
+                            <h4>Employee's Current Month Working Days : <strong><?php echo getDays($id,$conn) ?></strong></h4>
+                        </div>
+                        <br>
                         <div class="row">
                             <div class="col-md-12">
 
@@ -73,7 +91,7 @@ include('./connection.php');
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><?php echo $leaveRecord['medical_leaves'] - $s_record['sick_leave_count'] ?? 0 ;  ?></td>
+                                            <td><?php echo $leaveRecord['medical_leaves'] - $s_record['sick_leave_count'] ?? 0;  ?></td>
                                             <td><?php echo $leaveRecord['casual_leaves'] - $c_record['casual_leave_count'] ?? 0;  ?></td>
                                             <td><?php echo $leaveRecord['componsatory_leaves'] - $com_record['compensatory_leave_count'] ?? 0;  ?></td>
                                         </tr>

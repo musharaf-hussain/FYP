@@ -3,6 +3,39 @@
 $id = $_SESSION['auth']['id'];
 $start = isset($_GET['start']) && $_GET['start'] != '' ? $_GET['start'] : null;
 $end = isset($_GET['end']) && $_GET['end'] != ''  ? $_GET['end']  : null;
+
+function getHours($user_id,$conn){
+    $currentYear = date('Y');
+    $currentMonth = date('m');
+
+    // Form the start and end dates of the current month
+    $startOfMonth = $currentYear . '-' . $currentMonth . '-01 00:00:00';
+    $endOfMonth = $currentYear . '-' . $currentMonth . '-31 23:59:59';
+    $sql = "Select * from attendences where user_id ='$user_id' AND created_at >= '$startOfMonth' AND created_at <= '$endOfMonth'";
+    $query = mysqli_query($conn,$sql);
+    $row = mysqli_num_rows($query);
+    $totalHours = 0;
+
+    if($row > 0){
+    while ($record = mysqli_fetch_assoc($query)) {
+        if($record['check_in'] && $record['check_out']){
+                $startDateTime = new DateTime($record['check_in']);
+                $endDateTime = new DateTime($record['check_out']);
+
+                // Calculate the interval between the two date-times
+                $interval = $startDateTime->diff($endDateTime);
+
+                // Extract the total hours from the interval
+                $totalHours = $totalHours + ($interval->days * 24 + $interval->h);
+        }
+    }
+
+    return $totalHours;
+    }
+    return 0;
+
+
+}
 function query($conn, $sql)
 {
     $row1 = mysqli_query($conn, $sql);
@@ -10,6 +43,7 @@ function query($conn, $sql)
         return [];
     }
     $record1 = mysqli_fetch_assoc($row1);
+    
     return $record1;
 }
 include('./connection.php');
@@ -56,7 +90,10 @@ include('./connection.php');
                             <h3><?php echo $user['email']; ?> leave records</h3>
                         <?php } ?>
 
-
+                        <div>
+                            <h4>Employee's Current Month Working Hours : <strong><?php echo getHours($id,$conn); ?></strong></h4>
+                        </div>
+                        <br>
                         <div class="row">
                             <div class="col-md-12">
 
@@ -315,6 +352,6 @@ include('./connection.php');
         </div>
     </div>
 
-  
+
 
     <?php include('includes/footer.php'); ?>

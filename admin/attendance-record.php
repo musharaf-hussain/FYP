@@ -1,7 +1,7 @@
 <?php include('./includes/header.php'); ?>
 <?php include('../env.php');
-    $start = isset($_GET['start']) && $_GET['start'] != '' ? $_GET['start'] : null;
-    $end = isset($_GET['end']) && $_GET['end'] != ''  ? $_GET['end']  : null;
+$start = isset($_GET['start']) && $_GET['start'] != '' ? $_GET['start'] : null;
+$end = isset($_GET['end']) && $_GET['end'] != ''  ? $_GET['end']  : null;
 ?>
 
 <?php
@@ -11,6 +11,37 @@ if (isset($_GET['id']) && $_GET['id'] !== '') {
 } else {
     echo '<h1>Page Not found</h1>';
     die();
+}
+function getHours($user_id, $conn)
+{
+    $currentYear = date('Y');
+    $currentMonth = date('m');
+
+    // Form the start and end dates of the current month
+    $startOfMonth = $currentYear . '-' . $currentMonth . '-01 00:00:00';
+    $endOfMonth = $currentYear . '-' . $currentMonth . '-31 23:59:59';
+    $sql = "Select * from attendences where user_id ='$user_id' AND created_at >= '$startOfMonth' AND created_at <= '$endOfMonth'";
+    $query = mysqli_query($conn, $sql);
+    $row = mysqli_num_rows($query);
+    $totalHours = 0;
+
+    if ($row > 0) {
+        while ($record = mysqli_fetch_assoc($query)) {
+            if ($record['check_in'] && $record['check_out']) {
+                $startDateTime = new DateTime($record['check_in']);
+                $endDateTime = new DateTime($record['check_out']);
+
+                // Calculate the interval between the two date-times
+                $interval = $startDateTime->diff($endDateTime);
+
+                // Extract the total hours from the interval
+                $totalHours = $totalHours + ($interval->days * 24 + $interval->h);
+            }
+        }
+
+        return $totalHours;
+    }
+    return 0;
 }
 function query($conn, $sql)
 {
@@ -66,11 +97,16 @@ include('../connection.php');
                             <h3><?php echo $user['email']; ?> leave records</h3>
                         <?php } ?>
 
+                        <div>
+                            <h4>Employee's Current Month Working Hours : <strong><?php echo getHours($id, $conn); ?></strong></h4>
+                        </div>
+                        <br>
+
                         <div class="row">
                             <div class="form-group " style="margin-bottom:10px;">
                                 <label class=" control-label">Selected Date Range</label>
                                 <div class="">
-                                    <input type="text" class="form-control daterange" value="<?php echo $end ? $start .','. $end :''?>" data-format="YYYY-MM-DD" data-separator=" , " />
+                                    <input type="text" class="form-control daterange" value="<?php echo $end ? $start . ',' . $end : '' ?>" data-format="YYYY-MM-DD" data-separator=" , " />
                                 </div>
                             </div>
                         </div>
@@ -337,7 +373,7 @@ include('../connection.php');
             let dateRangeStr = $(this).val()
             var [start, end] = dateRangeStr.split(" , ");
             let url = '<?php echo $adminBaseUrl; ?>/attendance-record.php?id=<?php echo $id ?>';
-            url = url + '&start=' + start + '&end='+end
+            url = url + '&start=' + start + '&end=' + end
             window.location.href = url
         })
     </script>
